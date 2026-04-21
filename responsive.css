@@ -1,0 +1,75 @@
+/* Mobile responsive — all cascaded, applies only under 900 / 640px */
+
+/* Tablet and below — stack grids */
+@media (max-width: 900px) {
+  .section { padding: 64px 0; }
+  .container { padding: 0 20px; }
+
+  /* Nav: hide labels, keep wordmark + primary CTA only */
+  .nav { padding: 0 20px; }
+  .nav-links a:not(.btn):not(.btn-ink):not(.btn-sm) { display: none; }
+  .nav-links { gap: 14px; }
+
+  /* Hero CTA group stays centered, wraps cleanly */
+  .hero-cta-group { flex-direction: column; gap: 14px !important; align-items: stretch; width: 100%; max-width: 360px; }
+  .cta-primary, .cta-secondary { width: 100%; justify-content: center; }
+  .cta-primary { justify-content: space-between; }
+
+  /* Approche rows: stack content under the number */
+  .step-row {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+  .step-row h3 { font-size: 18px !important; }
+
+  /* Conformité grid → single column */
+  #conformite .container { grid-template-columns: 1fr !important; gap: 40px !important; }
+
+  /* Contact grid → single column */
+  #contact .container { grid-template-columns: 1fr !important; gap: 40px !important; }
+
+  /* Footer grid */
+  .footer .container:first-child { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
+
+  /* Headlines shrink */
+  h1, h2 { overflow-wrap: break-word; }
+}
+
+/* Phones */
+@media (max-width: 640px) {
+  .section { padding: 48px 0; }
+  .container { padding: 0 16px; }
+
+  .hero-title { font-size: clamp(34px, 9vw, 48px) !important; }
+  .hero-sub { font-size: 17px !important; }
+
+  /* Section headings shrink */
+  h2 { font-size: 28px !important; line-height: 1.18 !important; }
+
+  /* Nav — shrink CTA */
+  .btn-sm { padding: 0 12px !important; font-size: 12px !important; }
+
+  /* Footer → single column on phones */
+  .footer .container:first-child { grid-template-columns: 1fr !important; }
+  .footer .container.mono { flex-direction: column; gap: 8px; }
+
+  /* CTA primary a touch smaller */
+  .cta-primary { padding: 6px 8px 6px 22px; height: 56px; font-size: 15px; }
+  .cta-primary-arrow { width: 40px; height: 40px; }
+  .cta-secondary { height: 56px; font-size: 15px; }
+
+  /* Approche step numbers less prominent */
+  .step-num { font-size: 12px !important; }
+
+  /* Contact form tighter */
+  #contact form { padding: 24px !important; }
+
+  /* Eyebrow shouldn't wrap weirdly */
+  .eyebrow { font-size: 12px; }
+}
+
+/* Tiny phones */
+@media (max-width: 380px) {
+  .container { padding: 0 14px; }
+  .hero-title { font-size: 32px !important; }
+}

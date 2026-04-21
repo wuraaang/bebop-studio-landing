@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>LinkedIn Banner — Bebop Studio</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body {
+    margin: 0; padding: 0;
+    background: #2A2724;
+    min-height: 100vh;
+    font-family: var(--font-body);
+  }
+  .page {
+    max-width: 1200px; margin: 0 auto; padding: 40px 24px 80px;
+    display: flex; flex-direction: column; align-items: center; gap: 18px;
+  }
+  .meta {
+    color: #8F8A82; font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: 0.02em; text-align: center;
+  }
+
+  /* Responsive wrapper — keeps 4:1 ratio at any width, up to 1584 */
+  .stage {
+    width: 100%; max-width: 1584px;
+    aspect-ratio: 1584 / 396;
+    background: var(--ink-900);
+    border-radius: 8px; overflow: hidden;
+    position: relative;
+    container-type: inline-size;
+  }
+
+  /* Cream panel — 58% wide, slight angled edge */
+  .cream {
+    position: absolute; inset: 0 auto 0 0; width: 58%;
+    background: var(--cream-50);
+    clip-path: polygon(0 0, 100% 0, calc(100% - 48px) 100%, 0 100%);
+  }
+
+  /* Amber glow on dark side */
+  .glow {
+    position: absolute; right: -8%; top: -40%;
+    width: 48%; aspect-ratio: 1/1;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(209,122,42,0.32) 0%, rgba(209,122,42,0) 70%);
+    pointer-events: none;
+  }
+
+  /* Thin amber accent line at the edge of the split */
+  .split-line {
+    position: absolute; top: 0; bottom: 0;
+    left: 58%;
+    width: 1px;
+    background: var(--accent);
+    opacity: 0.7;
+    transform: translateX(-24px) skewX(-7deg);
+  }
+
+  /* Content — everything sized in cqw (container-query width) so it scales 1:1 */
+  .content {
+    position: absolute; inset: 0;
+    padding: 5cqw 5cqw;
+    display: flex; justify-content: space-between; align-items: stretch;
+  }
+
+  .left {
+    flex: 0 0 52%;
+    display: flex; flex-direction: column; justify-content: space-between;
+    /* Push content right so it clears LinkedIn's avatar (~16cqw circle at bottom-left) */
+    padding-left: 14cqw;
+  }
+
+  .wordmark {
+    font-family: var(--font-display); font-style: italic; font-weight: 400;
+    font-size: 2.2cqw; letter-spacing: -0.02em; color: var(--ink-900);
+    display: inline-flex; align-items: baseline;
+  }
+  .wordmark .tittle {
+    width: 0.55cqw; height: 0.55cqw; border-radius: 50%;
+    background: var(--accent); display: inline-block;
+    transform: translateY(-1.1cqw); margin: 0 0.15cqw;
+  }
+
+  .headline {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: 4.6cqw; line-height: 1.02; letter-spacing: -0.028em;
+    color: var(--ink-900);
+    margin: 0;
+  }
+  .headline em { font-style: italic; color: var(--amber-700); }
+
+  .kicker {
+    font-family: var(--font-body); font-size: 0.95cqw; font-weight: 500;
+    color: var(--ink-700);
+    display: inline-flex; align-items: center; gap: 0.8cqw;
+  }
+  .kicker .bar { width: 2cqw; height: 1px; background: var(--accent); }
+
+  .right {
+    flex: 0 0 36%;
+    display: flex; flex-direction: column; justify-content: center;
+    text-align: right; color: var(--cream-50);
+    padding-right: 1cqw;
+  }
+  .eyebrow-r {
+    font-family: var(--font-body); font-size: 0.85cqw; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: #A9A39A; margin-bottom: 1cqw;
+  }
+  .services {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: 1.55cqw; line-height: 1.4; letter-spacing: -0.012em;
+    margin: 0 0 1.4cqw; color: var(--cream-50);
+  }
+  .services strong { color: var(--accent); font-weight: 400; font-style: italic; }
+
+  .meta-row {
+    display: flex; gap: 1.2cqw; align-items: center; justify-content: flex-end;
+    color: #A9A39A; font-family: var(--font-mono);
+    font-size: 0.9cqw; letter-spacing: 0.02em;
+  }
+  .sep { width: 3px; height: 3px; border-radius: 50%; background: #5B5750; }
+  .live {
+    width: 0.55cqw; height: 0.55cqw; border-radius: 50%; background: var(--accent);
+    box-shadow: 0 0 0 0 rgba(209, 122, 42, 0.5);
+    animation: pulse 2.4s ease-out infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(209, 122, 42, 0.55); }
+    70%  { box-shadow: 0 0 0 0.7cqw rgba(209, 122, 42, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(209, 122, 42, 0); }
+  }
+
+  /* Avatar safe-zone overlay (dev aid) */
+  .safe { position: absolute; inset: 0; display: none; pointer-events: none; }
+  body.show-safe .safe { display: block; }
+  .safe .avatar {
+    position: absolute;
+    left: 4.5cqw; bottom: -8cqw;
+    width: 16cqw; height: 16cqw; border-radius: 50%;
+    border: 2px dashed rgba(209, 122, 42, 0.7);
+  }
+
+  .toolbar { display: flex; gap: 10px; margin-top: 8px; }
+  .toolbar button {
+    height: 32px; padding: 0 12px; border-radius: 4px;
+    border: 1px solid #3a3632; background: transparent; color: #C6C1B8;
+    font-family: var(--font-mono); font-size: 12px; cursor: pointer;
+    letter-spacing: 0.02em;
+  }
+  .toolbar button:hover { border-color: var(--accent); color: var(--accent); }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="meta">LinkedIn profile banner · 1584 × 396 px</div>
+
+    <div class="stage" id="stage">
+      <div class="cream"></div>
+      <div class="glow"></div>
+      <div class="split-line"></div>
+
+      <div class="content">
+        <div class="left">
+          <div class="wordmark">Bebop Stud<span class="tittle"></span>io</div>
+          <h1 class="headline">
+            La conformité<br><em>sans surprise</em>.
+          </h1>
+          <div class="kicker">
+            <span class="bar"></span>
+            <span>Agence française · conformité &amp; automatisation admin</span>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="eyebrow-r">Nous accompagnons</div>
+          <p class="services">
+            Les <strong>TPE et PME</strong> sur la facturation électronique
+            et l'<strong>automatisation</strong> des tâches administratives.
+          </p>
+          <div class="meta-row">
+            <span class="live"></span>
+            <span>bebopstudio.fr</span>
+            <span class="sep"></span>
+            <span>contact@bebopstudio.fr</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="safe"><div class="avatar"></div></div>
+    </div>
+
+    <div class="toolbar">
+      <button id="toggle-safe">Afficher la zone avatar</button>
+      <button id="download">Télécharger PNG 1584×396</button>
+    </div>
+    <div class="meta" style="max-width: 720px;">
+      Le titre est décalé vers la droite pour rester clair de la photo de profil LinkedIn qui se pose en bas-gauche.
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/html-to-image@1.11.13/dist/html-to-image.js"></script>
+  <script>
+    document.getElementById('toggle-safe').addEventListener('click', () => {
+      document.body.classList.toggle('show-safe');
+    });
+
+    document.getElementById('download').addEventListener('click', async () => {
+      const stage = document.getElementById('stage');
+      const btn = document.getElementById('download');
+      const safeWas = document.body.classList.contains('show-safe');
+      document.body.classList.remove('show-safe');
+
+      btn.disabled = true; btn.textContent = 'Génération…';
+
+      // Build an off-screen clone sized to the native 1584×396.
+      // We render the clone (not the live stage) so the user's view isn't disturbed,
+      // and so the container-query-based sizing computes against exactly 1584px.
+      const clone = stage.cloneNode(true);
+      clone.style.width = '1584px';
+      clone.style.height = '396px';
+      clone.style.aspectRatio = 'auto';
+      clone.style.maxWidth = 'none';
+      clone.style.borderRadius = '0';
+      clone.style.margin = '0';
+      clone.querySelector('.safe')?.remove();
+
+      const host = document.createElement('div');
+      host.style.cssText = 'position:fixed;left:-99999px;top:0;width:1584px;height:396px;pointer-events:none;';
+      host.appendChild(clone);
+      document.body.appendChild(host);
+
+      try {
+        await document.fonts.ready;
+        // Give container queries a frame to settle
+        await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+
+        const dataUrl = await htmlToImage.toPng(clone, {
+          width: 1584,
+          height: 396,
+          pixelRatio: 2,
+          cacheBust: true,
+          backgroundColor: '#0F0D0B',
+        });
+
+        const a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = 'bebop-studio-linkedin-banner.png';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      } catch (err) {
+        console.error(err);
+        alert("Échec de l'export : " + (err?.message || err));
+      } finally {
+        host.remove();
+        if (safeWas) document.body.classList.add('show-safe');
+        btn.disabled = false; btn.textContent = 'Télécharger PNG 1584×396';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+/* =========================================================================
+   Bebop Studio — Colors & Type
+   Sobre, sérieux, rassurant. Noir + ambre chaud + blanc cassé.
+   ========================================================================= */
+
+/* ---------- Fonts ---------- */
+/* Display serif: Source Serif 4 — modern, editorial, fintech-credible.
+   Body sans: Geist — clean B2B, not overused.
+   Mono: Geist Mono — for figures, receipts, code-like tokens. */
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&display=swap');
+
+:root {
+  /* =======================================================================
+     COLORS — raw palette
+     ======================================================================= */
+
+  /* Ink — blacks used for type and strong surfaces. Not pure #000;
+     a warm near-black that reads as "printed ink" on cream. */
+  --ink-900: #111111;   /* primary text, logo, headlines */
+  --ink-800: #1C1B19;   /* strong surface (footer, callout blocks) */
+  --ink-700: #2A2724;   /* secondary text on cream */
+  --ink-500: #5B5750;   /* tertiary / muted text */
+  --ink-300: #8F8A82;   /* subtle metadata, placeholder */
+  --ink-200: #C6C1B8;   /* borders on cream */
+  --ink-100: #E4DFD5;   /* hairline dividers */
+
+  /* Cream — warm off-white page surfaces. Never pure white. */
+  --cream-50:  #FBF8F2;  /* page background */
+  --cream-100: #F5F1E8;  /* raised surface / card */
+  --cream-200: #EDE7D9;  /* hover / pressed */
+  --cream-0:   #FFFFFF;  /* only inside inputs / reversed chips */
+
+  /* Amber — single warm accent. Used sparingly:
+     CTAs, underlines, active states, key numerals. */
+  --amber-700: #8A4A12;  /* pressed / on-cream text-accent */
+  --amber-600: #B26420;  /* hover */
+  --amber-500: #D17A2A;  /* PRIMARY — main accent, CTA fill */
+  --amber-400: #E49247;  /* highlight / active underline */
+  --amber-200: #F4D6A8;  /* soft tint, badge bg */
+  --amber-100: #FBEBD0;  /* faintest wash */
+
+  /* Semantic — low-saturation, coherent with the ink+amber world. */
+  --ok-700:     #2F5D3A;
+  --ok-100:     #DFE9D9;
+  --warn-700:   #8A5A12;  /* reuse amber family */
+  --warn-100:   #FBEBD0;
+  --danger-700: #7A2E22;
+  --danger-100: #EFD5CF;
+  --info-700:   #2D4A66;
+  --info-100:   #D9E2EB;
+
+  /* =======================================================================
+     SEMANTIC TOKENS — use THESE in components, not the raw palette
+     ======================================================================= */
+
+  /* Surfaces */
+  --bg-page:      var(--cream-50);
+  --bg-raised:    var(--cream-100);
+  --bg-sunken:    var(--cream-200);
+  --bg-inverse:   var(--ink-800);   /* footer, strong sections */
+  --bg-input:     var(--cream-0);
+
+  /* Foreground (on cream) */
+  --fg-1:         var(--ink-900);   /* headlines, primary text */
+  --fg-2:         var(--ink-700);   /* body */
+  --fg-3:         var(--ink-500);   /* tertiary, captions */
+  --fg-muted:     var(--ink-300);   /* placeholder, metadata */
+  --fg-on-inverse: var(--cream-50); /* text on --bg-inverse */
+  --fg-on-inverse-muted: #A9A39A;
+
+  /* Accent */
+  --accent:       var(--amber-500);
+  --accent-hover: var(--amber-600);
+  --accent-press: var(--amber-700);
+  --accent-soft:  var(--amber-200);
+  --accent-faint: var(--amber-100);
+  --on-accent:    var(--cream-50);  /* text on filled amber */
+
+  /* Borders */
+  --border-strong: var(--ink-700);
+  --border-base:   var(--ink-200);
+  --border-subtle: var(--ink-100);
+  --border-accent: var(--amber-500);
+
+  /* =======================================================================
+     TYPE — families, scale, weights
+     ======================================================================= */
+  --font-display: "Source Serif 4", "Source Serif Pro", Georgia, "Times New Roman", serif;
+  --font-body:    "Geist", "Söhne", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono:    "Geist Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Scale — compact, editorial. 1.250 minor-third-ish. */
+  --fs-display: clamp(3.5rem, 6vw, 5.5rem); /* 56 → 88px */
+  --fs-h1:      clamp(2.5rem, 4vw, 3.5rem); /* 40 → 56px */
+  --fs-h2:      clamp(1.75rem, 2.6vw, 2.25rem); /* 28 → 36px */
+  --fs-h3:      1.375rem;    /* 22px */
+  --fs-h4:      1.125rem;    /* 18px */
+  --fs-body:    1rem;        /* 16px */
+  --fs-small:   0.875rem;    /* 14px */
+  --fs-xs:      0.75rem;     /* 12px */
+  --fs-eyebrow: 0.8125rem;   /* 13px — tracked caps */
+
+  /* Line heights */
+  --lh-tight:   1.05;   /* display */
+  --lh-snug:    1.15;   /* headings */
+  --lh-normal:  1.55;   /* body */
+  --lh-loose:   1.75;   /* long-form */
+
+  /* Tracking */
+  --tr-tight:   -0.02em;
+  --tr-snug:    -0.01em;
+  --tr-normal:  0;
+  --tr-eyebrow: 0.14em;
+  --tr-mono:    0.02em;
+
+  /* Weights */
+  --w-reg:  400;
+  --w-med:  500;
+  --w-sb:   600;
+  --w-b:    700;
+
+  /* =======================================================================
+     SPACING / RADII / SHADOWS / MOTION
+     ======================================================================= */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+  --s-20: 80px;
+  --s-24: 96px;
+  --s-32: 128px;
+
+  /* Radii — understated. Cards are nearly square. */
+  --r-sm: 2px;
+  --r-md: 4px;
+  --r-lg: 6px;
+  --r-pill: 999px;
+
+  /* Shadows — soft, warm-tinted, never dramatic. */
+  --shadow-1: 0 1px 2px rgba(28, 27, 25, 0.06);
+  --shadow-2: 0 2px 8px rgba(28, 27, 25, 0.08), 0 1px 2px rgba(28, 27, 25, 0.04);
+  --shadow-3: 0 8px 24px rgba(28, 27, 25, 0.09), 0 2px 6px rgba(28, 27, 25, 0.05);
+  --shadow-inset: inset 0 0 0 1px rgba(28, 27, 25, 0.06);
+
+  /* Motion — calm, deliberate. No bounces. */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out:      cubic-bezier(0.2, 0, 0.1, 1);
+  --dur-fast: 120ms;
+  --dur-base: 180ms;
+  --dur-slow: 260ms;
+
+  /* Focus ring */
+  --focus-ring: 0 0 0 2px var(--bg-page), 0 0 0 4px var(--amber-500);
+}
+
+/* =========================================================================
+   Base semantic elements
+   ========================================================================= */
+html, body {
+  background: var(--bg-page);
+  color: var(--fg-2);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  font-weight: var(--w-reg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, .display {
+  font-family: var(--font-display);
+  color: var(--fg-1);
+  font-weight: var(--w-reg);     /* serif looks best regular */
+  letter-spacing: var(--tr-tight);
+  line-height: var(--lh-snug);
+  text-wrap: pretty;
+}
+
+.display {
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.025em;
+}
+
+h1 { font-size: var(--fs-h1); line-height: var(--lh-tight); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); letter-spacing: var(--tr-snug); }
+h4 { font-size: var(--fs-h4); letter-spacing: var(--tr-snug); font-weight: var(--w-med); font-family: var(--font-body); color: var(--fg-1); }
+
+p { color: var(--fg-2); margin: 0 0 1em; text-wrap: pretty; }
+
+small, .small { font-size: var(--fs-small); }
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--w-med);
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--fg-3);
+}
+
+.mono, code, kbd {
+  font-family: var(--font-mono);
+  font-size: 0.95em;
+  letter-spacing: var(--tr-mono);
+}
+
+code {
+  background: var(--bg-sunken);
+  padding: 1px 6px;
+  border-radius: var(--r-sm);
+  color: var(--fg-1);
+}
+
+a {
+  color: var(--fg-1);
+  text-decoration: underline;
+  text-decoration-color: var(--amber-500);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color var(--dur-base) var(--ease-standard),
+              text-decoration-color var(--dur-base) var(--ease-standard);
+}
+a:hover {
+  color: var(--amber-700);
+  text-decoration-color: var(--amber-700);
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border-subtle);
+  margin: var(--s-10) 0;
+}
+
+::selection {
+  background: var(--amber-200);
+  color: var(--ink-900);
+}
+
+*:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--r-sm);
+}
