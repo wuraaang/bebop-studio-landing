@@ -37,32 +37,28 @@ const App = () => {
   const goContact = () => scrollTo('contact');
   const goApproche = () => scrollTo('approche');
 
-  const onSubmit = async (form) => {
-    try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          access_key: 'f2f5d73b-1932-40d8-a875-3cc3913ac916',
-          subject: `[bebopstudio.fr] Nouveau contact — ${form.name} (${form.company})`,
-          from_name: form.name,
-          replyto: form.email,
-          name: form.name,
-          company: form.company,
-          email: form.email,
-          message: form.context || '(pas de contexte fourni)',
-          botcheck: '',
-        }),
-      });
-      if (res.ok) {
-        setSubmitted(true);
-        setTimeout(() => setSubmitted(false), 6000);
-      } else {
-        alert("Erreur d'envoi. Écrivez-nous directement à contact@bebopstudio.fr");
-      }
-    } catch (e) {
-      alert("Erreur réseau. Écrivez-nous directement à contact@bebopstudio.fr");
-    }
+  const onSubmit = (form) => {
+    const subject = `Demande de contact — ${form.name}${form.company ? ' (' + form.company + ')' : ''}`;
+    const body = [
+      'Bonjour,',
+      '',
+      'Je souhaite prendre contact avec Bebop Studio.',
+      '',
+      '— Mes coordonnées —',
+      `Nom : ${form.name}`,
+      `Entreprise : ${form.company}`,
+      `Email : ${form.email}`,
+      '',
+      '— Contexte —',
+      form.context || '(à compléter)',
+      '',
+      'Cordialement,',
+      form.name,
+    ].join('\n');
+    const mailto = `mailto:contact@bebopstudio.fr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
+    setSubmitted(true);
+    setTimeout(() => setSubmitted(false), 8000);
   };
 
   return (

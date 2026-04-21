@@ -35,12 +35,12 @@ const Contact = ({ onSubmit, submitted }) => {
         >
           {submitted ? (
             <div style={{ padding: '24px 8px', textAlign: 'left' }}>
-              <div className="eyebrow" style={{ color: 'var(--accent-press)', marginBottom: 10 }}>Message envoyé</div>
+              <div className="eyebrow" style={{ color: 'var(--accent-press)', marginBottom: 10 }}>Votre mail est prêt</div>
               <div style={{ fontFamily: 'var(--font-display)', fontSize: 26, letterSpacing: '-0.02em', color: 'var(--fg-1)', marginBottom: 10 }}>
-                Merci, nous revenons vers vous.
+                Cliquez « Envoyer » dans votre messagerie.
               </div>
               <p style={{ margin: 0, color: 'var(--fg-2)', fontSize: 15, lineHeight: 1.55 }}>
-                Un email de confirmation vient de partir à <span className="mono">{form.email || 'votre adresse'}</span>. Nous répondons sous 48h ouvrées.
+                Votre client mail s'est ouvert avec vos informations pré-remplies. Il ne reste qu'à valider l'envoi. Si rien ne s'ouvre, écrivez-nous directement à <a href="mailto:contact@bebopstudio.fr" className="mono">contact@bebopstudio.fr</a>. Réponse sous 48h ouvrées.
               </p>
             </div>
           ) : (
